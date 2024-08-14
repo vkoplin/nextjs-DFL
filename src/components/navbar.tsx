@@ -139,7 +139,7 @@ export function Navbar() {
           </ul>
           <div className="mt-6 flex items-center gap-4">
             <Button variant="text">Log in</Button>
-            <a href="https://www.materila-tailwind.com/blocks" target="_blank">
+            <a href="https://www.material-tailwind.com/blocks" target="_blank">
               <Button color="gray">blocks</Button>
             </a>
           </div>
