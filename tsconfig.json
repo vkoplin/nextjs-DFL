@@ -12,7 +12,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -27,13 +27,16 @@
         "./src/*"
       ]
     },
-    "forceConsistentCasingInFileNames": true
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node", "react", "react-dom", "next"]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

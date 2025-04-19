@@ -5,47 +5,63 @@ import StatsCard from "@/components/stats-card";
 
 const STATS = [
   {
-    count: "1,500+",
-    title: "Participants",
+    count: "$4.2B",
+    title: "Total Market Cap",
   },
   {
-    count: "50",
-    title: "Speakers",
+    count: "32",
+    title: "Teams Available",
   },
   {
-    count: "20+",
-    title: "Workshops",
+    count: "250K+",
+    title: "Active Traders",
   },
   {
-    count: "3",
-    title: "Days",
+    count: "$850M",
+    title: "24h Volume",
   },
 ];
 
 export function OurStats() {
   return (
-    <section className="container mx-auto grid gap-10 px-8 py-44 lg:grid-cols-1 lg:gap-20 xl:grid-cols-2 xl:place-items-center">
-      <div>
-        <Typography variant="h6" color="orange" className="mb-6 font-medium">
-          Our Stats
-        </Typography>
-        <Typography
-          className="text-5xl font-bold leading-tight lg:w-3/4"
-          color="blue-gray"
-        >
-          Conference Highlights
-        </Typography>
-        <Typography
-          variant="lead"
-          className="mt-3 w-full !text-gray-500 lg:w-9/12"
-        >
-          This three-day extravaganza brings together the brightest minds,
-          leading innovators, and top companies in the field of Artificial
-          Intelligence.
-        </Typography>
+    <section className="py-16 bg-cyber-darker relative overflow-hidden">
+      {/* Cyberpunk Background Pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-cyber-grid bg-[size:2rem_2rem]" />
+        <div className="absolute inset-0 bg-cyber-glow" />
       </div>
-      <div>
-        <div className="grid grid-cols-2 gap-8 gap-x-28">
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-12">
+          <Typography 
+            variant="h6" 
+            className="font-nfl mb-4 text-cyber-blue text-lg animate-neon-pulse"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
+            MARKET METRICS
+          </Typography>
+          <Typography 
+            variant="h2" 
+            className="font-nfl text-white text-4xl"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
+            Platform Statistics
+          </Typography>
+          <Typography 
+            className="mt-4 text-cyber-light max-w-2xl mx-auto"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
+            Track real-time market performance, trading volumes, and platform growth. Our transparent blockchain infrastructure ensures accurate and verifiable statistics.
+          </Typography>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {STATS.map((props, key) => (
             <StatsCard key={key} {...props} />
           ))}

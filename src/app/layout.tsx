@@ -1,25 +1,30 @@
+"use client";
+
+import React from 'react';
 import "./globals.css";
-import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Roboto, Oswald } from "next/font/google";
 import { Layout, FixedPlugin } from "@/components";
+import { ThemeProvider } from "@material-tailwind/react";
 
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700", "900"],
   display: "swap",
+  variable: '--font-roboto',
 });
 
-export const metadata: Metadata = {
-  title: "NextJS Tailwind Event Landing Page",
-  description:
-    "Introducing Tailwind Event Landing Page, a dynamic and visually appealing landing page template designed using Tailwind CSS and Material Tailwind.",
-};
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: '--font-oswald',
+});
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <head>
@@ -30,11 +35,13 @@ export default function RootLayout({
         ></script>
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />
       </head>
-      <body className={roboto.className}>
-        <Layout>
-          {children}
-          <FixedPlugin />
-        </Layout>
+      <body className={`${roboto.variable} ${oswald.variable} font-nfl-body`}>
+        <ThemeProvider value={{}}>
+          <Layout>
+            {children}
+            <FixedPlugin />
+          </Layout>
+        </ThemeProvider>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"

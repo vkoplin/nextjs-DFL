@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Blockchain Football Images</title>
+    <style>
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="foundation-core" width="600" height="400"></canvas>
+    <canvas id="foundation-smart-contracts" width="600" height="400"></canvas>
+    <canvas id="development-nft" width="600" height="400"></canvas>
+    <canvas id="development-player-cards" width="600" height="400"></canvas>
+    <canvas id="launch-testing" width="600" height="400"></canvas>
+    <canvas id="launch-community" width="600" height="400"></canvas>
+
+    <script>
+        function drawBlockchainBackground(ctx, width, height) {
+            // Draw dark blue background
+            ctx.fillStyle = '#1a365d';
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw blockchain grid
+            ctx.strokeStyle = '#2d4a7c';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < width; i += 30) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, height);
+                ctx.stroke();
+            }
+            for (let i = 0; i < height; i += 30) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(width, i);
+                ctx.stroke();
+            }
+
+            // Draw blockchain nodes
+            ctx.fillStyle = '#4a90e2';
+            for (let i = 0; i < 20; i++) {
+                const x = Math.random() * width;
+                const y = Math.random() * height;
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function drawFootballElements(ctx, width, height) {
+            // Draw football field lines
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([10, 10]);
+            ctx.beginPath();
+            ctx.moveTo(0, height/2);
+            ctx.lineTo(width, height/2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
+
+        function drawText(ctx, text, x, y, color = '#ffffff') {
+            ctx.fillStyle = color;
+            ctx.font = 'bold 24px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(text, x, y);
+        }
+
+        // Generate Foundation Core image
+        const foundationCore = document.getElementById('foundation-core');
+        const ctx1 = foundationCore.getContext('2d');
+        drawBlockchainBackground(ctx1, 600, 400);
+        drawFootballElements(ctx1, 600, 400);
+        drawText(ctx1, 'Core Game Mechanics', 300, 150);
+        drawText(ctx1, '& Blockchain Integration', 300, 180);
+
+        // Generate Smart Contracts image
+        const foundationSmartContracts = document.getElementById('foundation-smart-contracts');
+        const ctx2 = foundationSmartContracts.getContext('2d');
+        drawBlockchainBackground(ctx2, 600, 400);
+        drawText(ctx2, 'Smart Contract Development', 300, 150);
+        drawText(ctx2, 'ERC-721 & ERC-1155', 300, 180);
+
+        // Generate NFT Features image
+        const developmentNft = document.getElementById('development-nft');
+        const ctx3 = developmentNft.getContext('2d');
+        drawBlockchainBackground(ctx3, 600, 400);
+        drawText(ctx3, 'NFT Marketplace', 300, 150);
+        drawText(ctx3, 'Trading & Ownership', 300, 180);
+
+        // Generate Player Cards image
+        const developmentPlayerCards = document.getElementById('development-player-cards');
+        const ctx4 = developmentPlayerCards.getContext('2d');
+        drawBlockchainBackground(ctx4, 600, 400);
+        drawText(ctx4, 'Player NFT Cards', 300, 150);
+        drawText(ctx4, 'Dynamic Ratings System', 300, 180);
+
+        // Generate Testing image
+        const launchTesting = document.getElementById('launch-testing');
+        const ctx5 = launchTesting.getContext('2d');
+        drawBlockchainBackground(ctx5, 600, 400);
+        drawText(ctx5, 'Testing & Optimization', 300, 150);
+        drawText(ctx5, 'Performance & Security', 300, 180);
+
+        // Generate Community image
+        const launchCommunity = document.getElementById('launch-community');
+        const ctx6 = launchCommunity.getContext('2d');
+        drawBlockchainBackground(ctx6, 600, 400);
+        drawText(ctx6, 'Community Integration', 300, 150);
+        drawText(ctx6, 'DAO & Governance', 300, 180);
+
+        // Function to download canvas as PNG
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Add download buttons
+        const buttons = document.createElement('div');
+        buttons.style.marginTop = '20px';
+        document.body.appendChild(buttons);
+
+        const canvases = document.querySelectorAll('canvas');
+        canvases.forEach(canvas => {
+            const button = document.createElement('button');
+            button.textContent = `Download ${canvas.id}.png`;
+            button.onclick = () => downloadCanvas(canvas, `${canvas.id}.png`);
+            button.style.margin = '5px';
+            buttons.appendChild(button);
+        });
+    </script>
+</body>
+</html> 

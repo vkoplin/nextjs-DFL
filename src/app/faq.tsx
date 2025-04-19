@@ -1,71 +1,145 @@
 "use client";
 
-import React from "react";
-import { Typography, Accordion, AccordionHeader, AccordionBody } from "@material-tailwind/react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
-const FAQS = [
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+const FAQ_ITEMS: FAQItem[] = [
   {
-    title: "1. How do I register for the AI Conference 2023?",
-    desc: "You can register for the AI Conference 2023 by visiting our registration page. Follow the simple steps to complete your registration and secure your spot at the conference.",
+    question: "What is DFL Token?",
+    answer: "DFL Token is a digital asset that represents ownership in NFL team performance. Each token is backed by smart contracts on the blockchain, enabling secure, transparent, and decentralized trading of team shares."
   },
   {
-    title: "2. What are the registration fees, and what is included?",
-    desc: "It really matters and then like it really doesn't matter. What matters is the people who are sparked by it. And the people who are like offended by it, it doesn't matter. Because it's about motivating the doers. Because I'm here to follow my dreams and inspire other people to follow their dreams, too. We're not always in the position that we want to be at. We're constantly growing. We're constantly making mistakes. We're constantly trying to express ourselves and actualize our dreams. If you have the opportunity to play this game of life you need to appreciate every moment. A lot of people don't appreciate the moment until it's passed.",
+    question: "How do I start trading team shares?",
+    answer: "To start trading, you'll need a Web3 wallet like MetaMask. Connect your wallet to our platform, complete the KYC process, and you can begin trading team shares using cryptocurrency or fiat payment methods."
   },
   {
-    title: "3. Can I get a refund if I need to cancel my registration?",
-    desc: "The time is now for it to be okay to be great. People in this world shun people for being great. For being a bright color. For standing out. But the time is now to be okay to be the greatest you. Would you believe in what you believe in, if you were the only one who believed it? If everything I did failed - which it doesn't, it actually succeeds - just the fact that I'm willing to fail is an inspiration. People are so scared to lose that they don't even try. Like, one thing people can't say is that I'm not trying, and I'm not trying my hardest, and I'm not trying to do the best way I know how.",
+    question: "What determines a team's token value?",
+    answer: "Team token values are influenced by multiple factors including team performance, market demand, trading volume, and overall market conditions. Our smart contracts ensure transparent price discovery."
   },
   {
-    title: "4. Will there be on-site registration available?",
-    desc: "I always felt like I could do anything. That's the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can't do anything, you won't do anything. I was taught I could do everything. If everything I did failed - which it doesn't, it actually succeeds - just the fact that I'm willing to fail is an inspiration. People are so scared to lose that they don't even try. Like, one thing people can't say is that I'm not trying, and I'm not trying my hardest, and I'm not trying to do the best way I know how.",
+    question: "Are the tokens regulated?",
+    answer: "Yes, DFL operates within regulatory frameworks for digital assets. We comply with relevant securities regulations and maintain strict KYC/AML procedures to ensure a safe trading environment."
   },
   {
-    title: "5. What is the dress code for the conference?",
-    desc: "There's nothing I really wanted to do in life that I wasn't able to get good at. That's my skill. I'm not really specifically talented at anything except for the ability to learn. That's what I do. That's what I'm here for. Don't be afraid to be wrong because you can't learn anything from a compliment. I always felt like I could do anything. That's the main thing people are controlled by! Thoughts- their perception of themselves! They're slowed down by their perception of themselves. If you're taught you can't do anything, you won't do anything. I was taught I could do everything.",
+    question: "What blockchain technology do you use?",
+    answer: "We utilize Ethereum for base layer security and Polygon for scalability. Smart contracts are audited by leading security firms, and we use Chainlink oracles for reliable price feeds and data."
   },
+  {
+    question: "How are dividends distributed?",
+    answer: "Token holders receive proportional rewards based on team performance and platform revenue. Rewards are automatically distributed through smart contracts, with transactions visible on the blockchain."
+  }
 ];
 
-export function Faq() {
-  const [open, setOpen] = React.useState(0);
-  const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
+export function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-8 px-8 lg:py-20">
-      <div className="container mx-auto">
-        <div className="text-center">
-          <Typography variant="h1" color="blue-gray" className="mb-4">
-            Frequently asked questions
-          </Typography>
-          <Typography
-            variant="lead"
-            className="mx-auto mb-24 lg:w-3/5 !text-gray-500"
+    <section className="relative py-24 overflow-hidden">
+      {/* Cyberpunk background pattern */}
+      <div className="absolute inset-0 bg-cyber-dark/95 backdrop-blur-sm">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px'
+        }} />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyber-dark/50 to-cyber-dark" />
+        {/* Animated grid lines */}
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(45deg, rgba(6, 182, 212, 0.1) 25%, transparent 25%),
+            linear-gradient(-45deg, rgba(6, 182, 212, 0.1) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, rgba(6, 182, 212, 0.1) 75%),
+            linear-gradient(-45deg, transparent 75%, rgba(6, 182, 212, 0.1) 75%)
+          `,
+          backgroundSize: '20px 20px',
+          backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+          animation: 'cyber-grid 20s linear infinite'
+        }} />
+      </div>
+
+      <div className="container relative mx-auto px-4">
+        <div className="text-center mb-16">
+          <motion.h3 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-xl font-cyber text-cyan-400 tracking-[0.2em] mb-4 animate-neon-pulse"
           >
-            Welcome to the AI Conference 2023 FAQ section. We&apos;re here to
-            address your most common queries and provide you with the
-            information you need to make the most of your conference experience.
-          </Typography>
+            FREQUENTLY ASKED QUESTIONS
+          </motion.h3>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-4xl font-bold text-white mb-6"
+          >
+            Everything You Need to Know
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-gray-400 max-w-2xl mx-auto"
+          >
+            Get answers to the most common questions about trading team shares on the blockchain
+          </motion.p>
         </div>
 
-        <div className="mx-auto lg:max-w-screen-lg lg:px-20">
-          {FAQS.map(({ title, desc }, key) => (
-            <Accordion
-              key={key}
-              open={open === key + 1}
-              onClick={() => handleOpen(key + 1)}
+        <div className="max-w-3xl mx-auto">
+          {FAQ_ITEMS.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="mb-4"
             >
-              <AccordionHeader className="text-left text-gray-900">
-                {title}
-              </AccordionHeader>
-              <AccordionBody>
-                <Typography
-                  color="blue-gray"
-                  className="font-normal text-gray-500"
-                >
-                  {desc}
-                </Typography>
-              </AccordionBody>
-            </Accordion>
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full text-left p-6 bg-cyber-dark/50 backdrop-blur rounded-xl border border-cyan-900/30 hover:border-cyan-400/50 transition-all duration-300 group relative overflow-hidden"
+              >
+                {/* Hover effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="flex justify-between items-center relative">
+                  <h3 className="text-white font-semibold group-hover:text-cyan-400 transition-colors duration-300">
+                    {item.question}
+                  </h3>
+                  <ChevronDownIcon 
+                    className={`w-5 h-5 text-cyan-400 transition-transform duration-300 ${
+                      openIndex === index ? 'rotate-180' : ''
+                    }`}
+                  />
+                </div>
+                <AnimatePresence>
+                  {openIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-4 text-gray-400 leading-relaxed border-t border-cyan-900/30 pt-4">
+                        {item.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </button>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -73,5 +147,4 @@ export function Faq() {
   );
 }
 
-
-export default Faq;
+export default FAQ;

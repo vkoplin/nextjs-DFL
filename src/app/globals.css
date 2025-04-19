@@ -1,3 +1,132 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --font-nfl: var(--font-oswald);
+    --font-nfl-body: var(--font-roboto);
+  }
+
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection Color */
+  ::selection {
+    @apply bg-nfl-red/20 text-nfl-red;
+  }
+}
+
+@layer components {
+  .nfl-button {
+    @apply bg-nfl-red hover:bg-nfl-red/90 text-white font-nfl text-lg px-8 py-3 rounded-md 
+    transition-all duration-300 hover:scale-105 hover:shadow-lg 
+    active:scale-95 active:shadow-md;
+  }
+  
+  .nfl-card {
+    @apply bg-white rounded-lg shadow-lg p-6 
+    hover:shadow-xl transition-all duration-300 
+    hover:scale-105 hover:-translate-y-1;
+  }
+  
+  .nfl-section {
+    @apply py-16 px-4 md:px-8 relative overflow-hidden;
+  }
+  
+  .nfl-container {
+    @apply container mx-auto max-w-7xl relative z-10;
+  }
+  
+  .nfl-heading {
+    @apply font-nfl text-nfl-heading text-nfl-navy mb-6 
+    transition-all duration-300 hover:text-nfl-red;
+  }
+  
+  .nfl-subheading {
+    @apply font-nfl text-nfl-subheading text-nfl-navy mb-4 
+    transition-all duration-300 hover:text-nfl-red;
+  }
+
+  /* Interactive Elements */
+  .nfl-link {
+    @apply relative text-nfl-navy hover:text-nfl-red transition-colors duration-300
+    after:content-[''] after:absolute after:bottom-0 after:left-0 
+    after:w-0 after:h-0.5 after:bg-nfl-red
+    hover:after:w-full after:transition-all after:duration-300;
+  }
+
+  .nfl-input {
+    @apply border border-gray-300 rounded-md px-4 py-2
+    focus:outline-none focus:ring-2 focus:ring-nfl-red/20 focus:border-nfl-red
+    transition-all duration-300;
+  }
+
+  .nfl-select {
+    @apply border border-gray-300 rounded-md px-4 py-2
+    focus:outline-none focus:ring-2 focus:ring-nfl-red/20 focus:border-nfl-red
+    transition-all duration-300 cursor-pointer
+    appearance-none bg-white;
+  }
+
+  /* Animated Background Patterns */
+  .nfl-grid-pattern {
+    @apply absolute inset-0 
+    bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] 
+    bg-[size:2rem_2rem];
+  }
+
+  .nfl-radial-pattern {
+    @apply absolute inset-0 
+    bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0%,transparent_50%)];
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-nfl-navy rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-nfl-red;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 1000px 100%;
+  animation: shimmer 2s linear infinite;
+}

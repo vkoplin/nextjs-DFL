@@ -1,39 +1,91 @@
 "use client";
 
-import { IconButton, Button, Typography } from "@material-tailwind/react";
-import { PlayIcon } from "@heroicons/react/24/solid";
+import { Button, Typography } from "@material-tailwind/react";
+import { motion } from "framer-motion";
+import { ArrowDownIcon } from "@heroicons/react/24/outline";
 
 function Hero() {
+  const scrollToNextSection = () => {
+    const nextSection = document.getElementById('feature-showcase');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="relative min-h-screen w-full bg-[url('/image/event.jpeg')] bg-cover bg-no-repeat">
-    <div className="absolute inset-0 h-full w-full bg-gray-900/60" />
-    <div className="grid min-h-screen px-8">
-      <div className="container relative z-10 my-auto mx-auto grid place-items-center text-center">
-        <Typography variant="h3" color="white" className="mb-2">
-          29-31 August @ New York
-        </Typography>
-        <Typography variant="h1" color="white" className="lg:max-w-3xl">
-          AI Conference 2023: Unlocking the Future
-        </Typography>
-        <Typography
-          variant="lead"
-          color="white"
-          className="mt-1 mb-12 w-full md:max-w-full lg:max-w-2xl"
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image with Parallax */}
+      <motion.div
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.5 }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/hero/own_the_future.png')",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50" />
+      </motion.div>
+
+      {/* Content */}
+      <div className="container mx-auto px-4 z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Join us for the most anticipated event of the year - the AI
-          Conference 2023!
-        </Typography>
-        <div className="flex items-center gap-4">
-          <Button variant="gradient" color="white">
-            Get started
+          <Typography
+            variant="h1"
+            color="white"
+            className="mb-4 text-4xl md:text-6xl lg:text-7xl font-nfl tracking-wider"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
+            OWN THE FUTURE
+          </Typography>
+          <Typography
+            variant="h1"
+            color="white"
+            className="mb-8 text-4xl md:text-6xl lg:text-7xl font-nfl tracking-wider"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
+            OF FOOTBALL
+          </Typography>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-col md:flex-row gap-4 justify-center"
+        >
+          <Button
+            size="lg"
+            color="white"
+            className="bg-cyber-blue hover:bg-cyber-blue/90 hover:scale-105 transform transition-all text-xl py-4 px-8 rounded-full font-nfl tracking-wider"
+            placeholder=""
+            onPointerEnterCapture={() => {}}
+            onPointerLeaveCapture={() => {}}
+          >
+            ENTER GAME
           </Button>
-          <IconButton className="rounded-full bg-white p-6">
-            <PlayIcon className="h-4 w-4 text-gray-900" />
-          </IconButton>
-        </div>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, delay: 1 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          onClick={scrollToNextSection}
+        >
+          <ArrowDownIcon className="h-8 w-8 text-white opacity-80 hover:opacity-100 transition-opacity" />
+        </motion.div>
       </div>
     </div>
-  </div>
   );
 }
 
