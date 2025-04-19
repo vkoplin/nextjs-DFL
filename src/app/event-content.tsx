@@ -124,7 +124,7 @@ export function EventContent() {
                 <Tab
                   key={value}
                   value={value}
-                  className="font-nfl text-white data-[active]:bg-nfl-red/20 data-[active]:text-white"
+                  className="font-nfl text-white data-[active]:bg-nfl-red/20 data-[active]:text-white hover:text-nfl-red transition-colors duration-300"
                   onPointerEnterCapture={() => {}}
                   onPointerLeaveCapture={() => {}}
                   placeholder=""
