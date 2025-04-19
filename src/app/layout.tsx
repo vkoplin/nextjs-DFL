@@ -3,7 +3,7 @@
 import React from 'react';
 import "./globals.css";
 import { Roboto, Oswald } from "next/font/google";
-import { Layout, FixedPlugin } from "@/components";
+import { Layout } from "@/components";
 import { ThemeProvider } from "@material-tailwind/react";
 
 const roboto = Roboto({
@@ -39,7 +39,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider value={{}}>
           <Layout>
             {children}
-            <FixedPlugin />
           </Layout>
         </ThemeProvider>
         <link
