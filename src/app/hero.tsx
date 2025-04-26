@@ -3,6 +3,7 @@
 import { Button, Typography } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import { ArrowDownIcon } from "@heroicons/react/24/outline";
+import Link from 'next/link';
 
 function Hero() {
   const scrollToNextSection = () => {
@@ -62,16 +63,18 @@ function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col md:flex-row gap-4 justify-center"
         >
-          <Button
-            size="lg"
-            color="white"
-            className="bg-cyber-blue hover:bg-cyber-blue/90 hover:scale-105 transform transition-all text-xl py-4 px-8 rounded-full font-nfl tracking-wider"
-            placeholder=""
-            onPointerEnterCapture={() => {}}
-            onPointerLeaveCapture={() => {}}
-          >
-            ENTER GAME
-          </Button>
+          <Link href="/game">
+            <Button
+              size="lg"
+              color="white"
+              className="bg-cyber-blue hover:bg-cyber-blue/90 hover:scale-105 transform transition-all text-xl py-4 px-8 rounded-full font-nfl tracking-wider"
+              placeholder=""
+              onPointerEnterCapture={() => {}}
+              onPointerLeaveCapture={() => {}}
+            >
+              ENTER GAME
+            </Button>
+          </Link>
         </motion.div>
 
         {/* Scroll Indicator */}
